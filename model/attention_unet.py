@@ -128,4 +128,4 @@ class AttentionUNet(torch.nn.Module):
         d_2 = self.upconv_2(d_2)
 
         d_1 = self.conv_1x1(d_2)
-        return d_1
+        return torch.nn.Sigmoid()(d_1)
