@@ -1,5 +1,6 @@
 from data_preprocessing import Dataset, train_valid_test_split
 from loss import DiceLoss
+from metrics import compute_dice_coefficient
 from model import AttentionUNet
 from training import train
 
@@ -11,6 +12,7 @@ import torch
 
 IMAGES_PATH = Path("data/images/")
 MASKS_PATH = Path("data/masks/")
+SAVED_MODEL_PATH = Path("saved_model/saved_model.pth")
 
 # Hyperparameters
 BATCH_SIZE = 8
@@ -51,9 +53,19 @@ def main() -> None:
     model = AttentionUNet()
     optimizer = torch.optim.Adam(model.parameters())
     compute_loss = DiceLoss()
-    metrics = {}
+    metrics = {"Dice Coefficient": compute_dice_coefficient}
 
-    train(model, train_loader, valid_loader, compute_loss, optimizer, metrics, N_EPOCHS)
+    train(
+        model,
+        train_loader,
+        valid_loader,
+        compute_loss,
+        optimizer,
+        metrics,
+        N_EPOCHS,
+        patience=10,
+        saved_model_path=SAVED_MODEL_PATH
+    )
 
 
 if __name__ == "__main__":
