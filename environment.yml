@@ -1,0 +1,13 @@
+name: object-volume
+channels:
+  - conda-forge
+dependencies:
+  - black
+  - cudatoolkit=11.6
+  - jupyterlab
+  - matplotlib
+  - mypy
+  - python
+  - pytorch
+  - scikit-learn
+  - torchvision
