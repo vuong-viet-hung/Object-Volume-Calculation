@@ -51,6 +51,7 @@ def main() -> None:
     # Train the model
     print(torch.cuda.get_device_name(0))
     model = AttentionUNet()
+    model.load_state_dict(torch.load(str(SAVED_MODEL_PATH)))
     optimizer = torch.optim.Adam(model.parameters())
     compute_loss = DiceLoss()
     metrics = {"Dice Coefficient": compute_dice_coefficient}
